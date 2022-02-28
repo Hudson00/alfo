@@ -1,0 +1,215 @@
+##########################
+# My Always Forget File! #
+##########################
+
+/* This file is for writing down miscellaneous Terminal shortcuts
+ * and things that are particularly useful or useless */
+
+#######
+# GNU #
+#######
+	-----
+	 g++
+	-----
+	-O3				# Optimization level 3 compilation flag. This is standards compliant.
+	-Ofast			# Enables all O3 optimizations and additional non-standards-compliant features
+	-funroll-loops	# Idk, but it makes stuff go fast
+
+
+
+#######
+# GDB #
+#######
+gdb [args]			# Boot gdb with the listed args. Include executable here. Args can be specified 
+					  later by using the `run` cmd within gdb.
+	%%%%%%%%%%%%%%
+	% Within GDB %
+	%%%%%%%%%%%%%%
+tui [enable/disable]	# Enable or disable the text user interface
+tui reg					# tui command to control the register window
+[backtrace/bt/where]	# Get a backtrace of the prgoram, i.e. display stack frames
+[frame/f] <num>			# Display stack frame <num>. If num unspecified, display current frame.
+[print/p] <var>			# Print the current value of a variable <var>
+[break/b] <something>	# Place a breakpoint at <something>. Can be line number, fn name, file:line.
+info [breakpoint/b]		# List all breakpoint information
+ENTER					# Pressing enter will run the last executed command
+[step/s]				# Step into the current line
+p ptr					# Print out the memory address and type of a pointer
+p *ptr					# Print out the data in the address pointed to by a pointer
+p *ptr->member			# Print out a class member of a pointer
+p *ptr->buffer@ptr->size	# Print out a buffer based on its size
+
+
+
+
+###########
+# General #
+###########
+
+shred filename		# Fills filename contents with nonsense so hard disk forensics can't recover 						  data that was originally there. Use this first before rm'ing sensitive files.
+#!/bin/bash			# This symbol is a shebang and is required at the top of shell script files
+chmod +x ...			# Adds executable file permissions (... is file name)
+!$					# Shorthand         for the last word used in the previous command
+alt + '.'			# Keyboard shortcut for the last word used in the previous command
+ls -l ...			# List file permissions for a file "..." ('x' means file is an exe)
+set -Eeuo pipefail	# Terminates sh script if error occurs. Use as first non-shebang line in file.
+dos2unix ...			# Converts line endings for a file "..." from Windows to Unix
+echo $?				# Prints the exit code of the most recent program to the Terminal
+man ...				# Access the manual pages of terminal commands that provide more usage info and
+					  examples. EX: "man ls" returns the user manual for the ls command.
+bash ...				# Run file "..." as bash script. Does NOT need shebang or have to be an exe.
+vim ...				# Opens file "..." with in-terminal editor. ":q" to exit, ":wq" to save & quit.
+$<varname>			# Used to access environment variables, where "<varname>" is the variable name
+unset <envvar>		# Used to remove an environment variable named "<envvar>"
+shasum -a 256 ...	# SHA-256 checksum the file (verifies the file file is valid and hasn't been
+					  modified in anyway somewhere during the download process
+curl -X ... URL		# The -X flag followed by an HTTP method (GET, POST, etc) specifies the type of 
+					  request curl makes to the URL.
+curl --verbose URL	# Use curl's verbose flag to view the certificate verifications, data transfers, 
+					  and other actions that curl must go through to get the HTML source of the 
+					  Wikipedia page
+curl --head URL		# Sends a HEAD requres to the specified URL
+curl --user-agent "..."		# Use curl while pretending to be using the User-Agent "..."
+mkdir -p ...		# -p is the parents flag, which will make any parent dirs necessary to complete 					  the path
+cat filename	# Prints the contents of the specified file in Terminal
+rsync -av \
+      --exclude '.git*' \
+      --exclude '.vs*' \
+      --exclude '*.code-workspace' \
+      --filter=":- .gitignore" \
+      "."/ \
+      "cahu@login.engin.umich.edu:'tmp/'"
+	echo "Files synced to CAEN at ~/${REMOTE_PATH}/"		# Sync all files in ./ to CAEN
+
+openssl s_client -connect <site>:<port>		# Similar to curl, this command will interact with the
+											  website <site> through system's TCP port number 
+											  <port> (HTTPS traffic lives on port 443). Shows all 												  details of encryption traffic.
+http <url>			# Use httpie to make requests to <url>. It's prettier than curl.
+find <dir> -iname '<search_str>'	# Searches dir for search_str and lists matches
+mdfind -name <search>				# Searches system for <search> and lists matches
+ps aux					# Generates a list of processes currently running on system
+ps aux | grep <name>	# Generate process list and isolate processes with <name> in COMMAND column
+kill -9 <PID>			# -9 sends a SIGKILL to the proceess associated with <PID>
+:(){ :|:& };:			# Run this if you want to kill your OS! This is a fork bomb.
+<any command> &			# Appending & to a command with nothing else relegates the command to the
+						  background instead of the foreground
+uname [-amnprsv]		# Yields information about the kernel. See man pages for more info.
+seq	<n>					# Returns sequence of numbers from 1...<n>
+<cmd> | grep <str>		# Filter <cmd>'s output to only display lines that contain <str>
+<cmd> | grep -v <str>	# Filter <cmd>'s output to only display lines that do NOT contain <str>
+sed -e "s/<pat>/<rep>/<flags>"		# Replace string(s) matching <pat> w/ <rep> w/ options <flags>. 
+									  No flags replaces first instance only, 'g' flag replaces all.
+ln -s file1 file2			# Create a link from file2 to file1
+ctrl + r						# Search for previously executed cmd in terminal
+ps -ax						# Display a list of all processes currently running on the machine
+ps -axM						# Display a list of all processes and threads running on the machine 
+ps -M <pid>					# Display a list of all threads currently running for process <pid>
+pgrep -lf <str>				# (MacOS) List all processes running on machine filtered by <str>
+pgrep -af <str>				# (Linux) List all processes running on machine filtered by <str>
+pkill -lf <str>				# (MacOS) Kill all processes running on machine filtered by <str>
+pkill -af <str>				# (Linux) Kill all processes running on machine filtered by <str>
+od -c <filename>				# Octal dump the contents of <filename> => with C-style characters
+grep '<str1>\|<str2>'		# Isolates input that matches either <str1> (inclusive) or <str2>
+grep -E '<str1>|<str2>'		# Same thing as above
+egrep '<str1>|<str2>'		# Ditto
+grep -e <str1> ... -e <strN>		# Double ditto
+grep -E '<str1>.*<str2>'		# Grep (Extended) has no and, but this regex pattern matches
+							  these two patterns and anything in-between
+grep -E '<str1>|<str2>|<str2>.*<str1>'		# Same as above, but pattern can be in either order
+grep -E <str1> | grep -E <str>				# Ditto
+grep -v <str>			# Grep NOT <str>
+grep --only-matching <str>		# Search for pattern and only display matching text. Case-sensitive.
+grep -o <str>					# Ditto
+sudo shutdown -h \+60	# Schedule shutdown in 60 minutes. "-h": halt, "-s": sleep, "-r": restart
+sudo killall shutdown	# Kill the scheduled shutdown process
+caffeinate -u -t <s>		# Prevent sleep (via active user messaging) for <s> seconds
+defaults write com.apple.finder AppleShowAllFiles -bool TRUE		# Finder: hidden files by default
+chflags hidden <PATH>	# Make the specified file/folder hidden by default
+uptime					# See your system's load time for the past 1-, 5-, and 15-minute periods
+stty -a					# Display a list of Terminal ctrl bindings (e.g. ^Z is SIGSUSP)
+echo 'str' | cut -f 1 -d t		# Splice the string, resulting in ouput 's'. The number that follows
+								  -f is the one-indexed index of the partitioned string.
+sudo lsof -t -i :<port>		# See all processes using <port>
+#!<command>				# Shebangs will run literally any command you pass to them.
+uname [opts]				# Get name or other details of current OS configuration
+ls | wc -l				# Count number of files in directory
+
+
+
+
+#######
+# Git #
+#######
+git config --list		# List the git configuration variables of the current repository
+git clean -xdi			# Removes all untracked and ".gitignore"d files from repo. Use caution.
+git checkout <filename>	# Reverts filename back to the previous commit's version of the file
+git restore <filename>	# Reverts filename back to the previous commit's version of the file
+git checkout <br_name>	# Checks out to branch, making HEAD point to where br_name points
+git checkout -b <br_n>	# Creates and checks out the branch br_n
+git switch <br_name>		# Switches current branch, making HEAD point to where br_name points
+git diff					# Reveals differences between current repository and previous version
+git reset <filename>		# Undoes any erroneous git adds that may have been made
+git commit --amend		# Modify the previous git commit to include changes
+git branch [br_name] 	# Create a new git branch with name br_name; makes HEAD point to br_name
+git branch -d <branch>	# Deletes a branch with name <branch>, if possible
+git branch -D <branch>	# Deletes a branch with name <branch>
+git branch -m <old> <new>	# Rename branch "old" to "new"
+git merge <br_name>		# Tries to move the current branch to where br_name points (fast-forwarding)
+git fetch				# Gets files from remote dir. It's git pull without the merge step.
+
+
+
+
+##########
+# Python #
+##########
+
+VIRTUAL ENVIRONMENT STUFF:
+	python -m venv env			# Creates a Virtual ENVironment in current directory
+	rm -rf env					# Remove created VENV (must reboot Terminal first)
+	source env/bin/activate		# Activates the virtual environment
+	deactivate					# Deactivates the currently active VENV
+	env							# See all environment variables (use $VAR_NAME to see individuals)
+	pip install -r <file>		# Installs all required packages listed in <file>. This is a nice
+								  way to automatically install dependencies for a virtual env.
+python3 -m http.server			# Launches local Python server out of current directory
+
+
+
+
+#######
+# Web #
+#######
+
+curl ipinfo.io/ip			# Returns your IP address
+
+
+
+
+#######
+# VIM #
+#######
+shift + left/right			# Move left/right one word at a time
+ctrl + w					# Erase word to the left
+ctrl + u					# Erase line to the left
+
+
+
+
+
+###########
+# Weather #
+###########
+
+curl http://wttr.in/ann_arbor		# 3-day forecast of Ann Arbor's weather
+
+
+
+
+
+############
+# PRO-TIPS #
+############
+- If you need to transfer a file between hard drive partitions (e.g. Ubuntu to Windows), an easy out 
+  is to just host the file you want to transfer via `python3 -m http.server 8000` and going to 
+  http://localhost:8000/<filename> to download the file on your desired partition.
