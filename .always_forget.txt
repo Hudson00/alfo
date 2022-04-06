@@ -133,6 +133,10 @@ sudo lsof -t -i :<port>		# See all processes using <port>
 #!<command>				# Shebangs will run literally any command you pass to them.
 uname [opts]				# Get name or other details of current OS configuration
 ls | wc -l				# Count number of files in directory
+alias <alias_name>		# Outputs the expansion of alias_name
+sudo vim /etc/services	# Update the port configs for different services (e.g. ssh)
+sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist			# These lines are for
+sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist		#   restarting ssh on MacOS
 
 
 
