@@ -207,13 +207,3 @@ ctrl + u					# Erase line to the left
 
 curl http://wttr.in/ann_arbor		# 3-day forecast of Ann Arbor's weather
 
-
-
-
-
-############
-# PRO-TIPS #
-############
-- If you need to transfer a file between hard drive partitions (e.g. Ubuntu to Windows), an easy out 
-  is to just host the file you want to transfer via `python3 -m http.server 8000` and going to 
-  http://localhost:8000/<filename> to download the file on your desired partition.
