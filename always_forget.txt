@@ -137,6 +137,14 @@ alias <alias_name>		# Outputs the expansion of alias_name
 sudo vim /etc/services	# Update the port configs for different services (e.g. ssh)
 sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist			# These lines are for
 sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist		#   restarting ssh on MacOS
+openssl enc -aes-256-cbc -salt -in <plainfile> -out <encfile>	# Encrypt <plainfile>
+																# and output as
+																# <encfile>. Can be
+																# used with -a flag
+																# for base64 encoding.
+openssl enc -d -aes-256-cbc -in <encfile> -out <plainfile>	# Decrypt <encfile> to
+															# <plainfile>. May also be
+															# used with -a flag.
 
 
 
@@ -177,6 +185,7 @@ VIRTUAL ENVIRONMENT STUFF:
 	pip install -r <file>		# Installs all required packages listed in <file>. This is a nice
 								  way to automatically install dependencies for a virtual env.
 python3 -m http.server			# Launches local Python server out of current directory
+pip freeze > requirements.txt   # Create requirements file with pip packages in current env
 
 
 
